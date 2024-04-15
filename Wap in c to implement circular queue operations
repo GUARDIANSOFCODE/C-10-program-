@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 5
+
+struct CircularQueue {
+    int items[MAX_SIZE];
+    int front, rear;
+};
+
+// Function to initialize circular queue
+void initialize(struct CircularQueue* queue) {
+    queue->front = -1;
+    queue->rear = -1;
+}
+
+// Function to check if the circular queue is empty
+int isEmpty(struct CircularQueue* queue) {
+    return (queue->front == -1);
+}
+
+// Function to check if the circular queue is full
+int isFull(struct CircularQueue* queue) {
+    return ((queue->rear + 1) % MAX_SIZE == queue->front);
+}
+
+// Function to add an element to the circular queue
+void enqueue(struct CircularQueue* queue, int value) {
+    if (isFull(queue)) {
+        printf("Queue is full\n");
+        return;
+    }
+    if (isEmpty(queue))
+        queue->front = 0;
+    queue->rear = (queue->rear + 1) % MAX_SIZE;
+    queue->items[queue->rear] = value;
+}
+
+// Function to remove an element from the circular queue
+int dequeue(struct CircularQueue* queue) {
+    if (isEmpty(queue)) {
+        printf("Queue is empty\n");
+        return -1;
+    }
+    int removed_item = queue->items[queue->front];
+    if (queue->front == queue->rear)
+        initialize(queue);
+    else
+        queue->front = (queue->front + 1) % MAX_SIZE;
+    return removed_item;
+}
+
+// Function to display the elements of the circular queue
+void display(struct CircularQueue* queue) {
+    if (isEmpty(queue)) {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Queue elements: ");
+    int i = queue->front;
+    do {
+        printf("%d ", queue->items[i]);
+        i = (i + 1) % MAX_SIZE;
+    } while (i != (queue->rear + 1) % MAX_SIZE);
+    printf("\n");
+}
+
+int main() {
+    struct CircularQueue queue;
+    initialize(&queue);
+
+    enqueue(&queue, 10);
+    enqueue(&queue, 20);
+    enqueue(&queue, 30);
+    enqueue(&queue, 40);
+    enqueue(&queue, 50); // Queue is full at this point
+
+    display(&queue);
+
+    printf("Dequeued element: %d\n", dequeue(&queue));
+    printf("Dequeued element: %d\n", dequeue(&queue));
+
+    display(&queue);
+
+    return 0;
+}
