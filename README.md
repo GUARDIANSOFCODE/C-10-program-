@@ -9,7 +9,7 @@
   * Version Control: Git and GitHub
   * Continuous Learning: Staying up-to-date with the latest advancements in web technologies
 
-☕️ My love for code is only surpassed by my love for Physics and Sports .
+☕️ My love for code is only surpassed by my love for Sciences and Sports .
 
 🤝 Check out my repositories for more! 
 Connect with me on social media platform . 
